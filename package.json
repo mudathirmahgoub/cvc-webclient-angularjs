@@ -1,0 +1,21 @@
+{
+    "name": "kind2-webclient",
+    "private": true,
+    "version": "0.0.0",
+    "description": "kind2-webclient",
+    "repository": "https://github.com/kind2-mc/kind2-webclient",
+    "scripts": {
+        "start": "http-server ./app -a localhost --cors -p 8000 -c-1",
+        "test": "karma start karma.conf.js --single-run",
+        "protractor": "protractor e2e-tests/protractor.conf.js"
+    },
+    "dependencies": {
+        "http-server": "^0.10.0",
+        "jasmine": "^2.6.0",
+        "jasmine-core": "^2.6.3",
+        "karma": "^1.7.0",
+        "karma-chrome-launcher": "^2.1.1",
+        "karma-jasmine": "^1.1.0",
+        "protractor": "^5.1.2"
+    }
+}
