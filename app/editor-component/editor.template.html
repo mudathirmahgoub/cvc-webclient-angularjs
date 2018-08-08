@@ -33,7 +33,7 @@
             <uib-tabset active="activeTab">
                 <uib-tab index="0" heading="Output">
                     <div ng-show="results.data">
-                       <div ng-repeat="line in results.data">
+                       <div ng-repeat="line in results.data track by $index">
                            <div>{{line}}</div>
                        </div>
                     </div>
