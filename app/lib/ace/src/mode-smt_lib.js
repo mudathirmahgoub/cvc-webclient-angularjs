@@ -67,16 +67,6 @@ define("ace/mode/smt_lib_highlight_rules",
                     regex : ";.*$"
                 },
                 {
-                    token: "contract", // multi line contract
-                    regex: "\\(\\*@",
-                    next: "contract"
-                },
-                {
-                    token: "comment", // multi line comment
-                    regex: "\\(\\*",
-                    next: "comment"
-                },
-                {
                     token: "constant.numeric", // hex
                     regex: "0[xX][0-9a-fA-F]+\\b"
                 }, {
@@ -106,22 +96,8 @@ define("ace/mode/smt_lib_highlight_rules",
                     regex: "\\s+"
                 }
             ],
-            "contract": [
-                {
-                    token: "contract", // closing contract
-                    regex: ".*\\*\\)",
-                    next: "start"
-                }, {
-                    token: "contract", // contract spanning whole line
-                    regex: ".+"
-                }
-            ],
             "comment": [
                 {
-                    token: "comment", // closing comment
-                    regex: ".*\\*\\)",
-                    next: "start"
-                }, {
                     token: "comment", // comment spanning whole line
                     regex: ".+"
                 }
