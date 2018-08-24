@@ -43,8 +43,15 @@ angular.module('cvc').directive('arguments', function () {
                     }
                     // set the default value
                     else {
-                        $scope.parameters[$scope.selectedName] = argument.defaultValue;
+                        if(argument.type == 'int' || argument.type == 'float'){
+                            $scope.parameters[$scope.selectedName] = parseInt(argument.defaultValue);
+                        }
+                        else {
+                            $scope.parameters[$scope.selectedName] = argument.defaultValue;
+                        }
                     }
+                    // clear the selected argument
+                    $scope.selectedName = '';
                 }
 
                 $scope.remove = function (key) {

@@ -49,7 +49,7 @@ angular.module('cvc').component('editor', {
                 "\n" +
                 "(check-sat)\n" +
                 "(get-model)\n";
-            
+
             editor.setValue(defaultCode);
             editor.selection.clearSelection();
 
