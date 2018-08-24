@@ -38,21 +38,6 @@ angular.module('cvc').component('editor', {
             $scope.isDarkTheme = true;
             editor.setTheme("ace/theme/idle_fingers");
             editor.getSession().setMode("ace/mode/smt_lib");
-            var defaultCode = "(set-logic ALL)\n" +
-                "(set-option :produce-models true)\n" +
-                "(declare-fun x () Int)\n" +
-                "(declare-fun y () Int)\n" +
-                "(declare-fun z () Int)\n" +
-                "\n" +
-                "(assert (distinct x y z))\n" +
-                "(assert (= (+ x y) z))\n" +
-                "\n" +
-                "(check-sat)\n" +
-                "(get-model)\n";
-            
-            editor.setValue(defaultCode);
-            editor.selection.clearSelection();
-
             $scope.code = editor.getValue();
 
             // tabs
