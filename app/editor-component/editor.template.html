@@ -24,6 +24,18 @@
                 <img ng-src="{{isDarkTheme? 'icons/bright.png' : 'icons/dark.png'}}" width="20" height="20">
             </a>
         </div>
+        <div class="form-group">
+            <!--<label class="colo-2 col-form-label" for="addArgument">Add Argument</label>-->
+            <div class="colo-10" style="margin-right: 5px;">
+            <input type="text"
+                   ng-model="selectedName"
+                   uib-typeahead="argument for argument in search | filter:$viewValue | limitTo:30"
+                   typeahead-on-select="onSelect($item, $model, $label, $event)"
+                   class="form-control"
+                   id="addArgument"
+                   placeholder="Add argument">
+            </div>
+        </div>
         <div class="editorCenterBody">
             <span us-spinner="{radius:30, width:8, length: 16, color: '#999'}"
                   spinner-on="waitingCheck || waitingSave || waitingSimulate || waitingRun"></span>
@@ -37,9 +49,9 @@
             <uib-tabset active="activeTab">
                 <uib-tab index="0" heading="Output">
                     <div ng-show="results.data">
-                       <div ng-repeat="line in results.data track by $index">
-                           <div>{{line}}</div>
-                       </div>
+                        <div ng-repeat="line in results.data track by $index">
+                            <div>{{line}}</div>
+                        </div>
                     </div>
                 </uib-tab>
             </uib-tabset>
@@ -47,6 +59,38 @@
     </div>
     <splitter class="editorColumnSplitter" direction="right"></splitter>
     <div class="editorArguments">
-        <arguments parameters="parameters"></arguments>
+        <div class="arguments">
+            <div class="form-group">
+                <div ng-repeat="(key, value) in parameters">
+                    <label>{{key}}</label>
+                    <div ng-switch on="argumentsList[key].type">
+                        <select ng-switch-when="boolean" ng-model="parameters[key]"
+                                class="btn btn-primary form-control">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                        <input ng-model="parameters[key]" ng-switch-when="int"
+                               type="number"
+                               min="{{argumentsList[key].min}}"
+                               max="{{argumentsList[key].max}}"
+                               class="form-control"/>
+                        <input ng-model="parameters[key]" ng-switch-when="float"
+                               type="number"
+                               min="{{argumentsList[key].min}}"
+                               max="{{argumentsList[key].max}}"
+                               class="form-control"/>
+                        <select ng-switch-when="string" ng-model="parameters[key]"
+                                class="btn btn-primary form-control"
+                                ng-options="v for v in argumentsList[key].allowedValues">
+                        </select>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            <hr/>
+            <div>
+                <button class="btn btn-primary" ng-click="reset()">Reset</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -30,9 +30,6 @@ angular.module('cvc').component('editor', {
             // waiting for run
             $scope.waitingRun = false;
 
-            // interpreter columns count
-            $scope.columnsCount = cvcEnvironment.interpreterNumberOfColumns;
-
             // ace editor initialization
             var editor = ace.edit('editor');
             $scope.isDarkTheme = true;
@@ -65,33 +62,8 @@ angular.module('cvc').component('editor', {
 
                 if (target.className.includes('ace_error')) {
 
-                    // get the selected property
+                    // get the selected row
                     var row = e.getDocumentPosition().row;
-                    var selectedProperty;
-                    
-                    angular.forEach($scope.results.NodeAnalysis, function (nodeAnalysis) {
-                    angular.forEach(nodeAnalysis.Analysis[nodeAnalysis.selectedAnalysis].Property, function (property) {
-                        if (property.line == (row + 1)) {
-                            if (sharedService.checkNested(property, 'Answer', 'value')
-                                && property.Answer.value == 'falsifiable'
-                            ) {
-                                selectedProperty = property;
-                            }
-                        }
-                    });
-                    });
-
-                    // open the modal interpreter
-                    $uibModal.open({
-                        component: 'modalInterpreter',
-                        resolve: {
-                            property: function () {
-
-                                var property = angular.copy(selectedProperty);
-                                return property;
-                            }
-                        }
-                    });
                 }
                 // stop the event
                 e.stop();
@@ -337,19 +309,6 @@ angular.module('cvc').component('editor', {
             }
 
 
-            $rootScope.getCode = function () {
-                $scope.code = editor.getValue();
-                return $scope.code;
-            }
-
-            $scope.closeAlert = function (index) {
-                $scope.alerts.splice(index, 1);
-            };
-
-            $rootScope.getAlerts = function () {
-                return $scope.alerts;
-            }
-
             $scope.toggleTheme = function () {
                 $scope.isDarkTheme = !$scope.isDarkTheme;
                 if ($scope.isDarkTheme) {
@@ -372,15 +331,56 @@ angular.module('cvc').component('editor', {
                 $scope.activeTab = 0; // logs tab
             }
 
-            $rootScope.updateView = updateView;
+            // parameters
+            $scope.reset = function () {
+                $scope.parameters = {};
+                $scope.parameters['lang'] = 'smtlib2.6';
+            }
+            $scope.reset();
 
-            $scope.updateSelectedAnalysis = function (nodeAnalysisIndex, analysisIndex){
-                if (sharedService.checkNested($scope.results, 'NodeAnalysis', 'length')){
-                    $scope.results.NodeAnalysis[nodeAnalysisIndex].selectedAnalysis = analysisIndex;
-                    //ToDo: refine this call to a more granular level
-                    updateView($scope.results, true);
+            // default parameters that are always visible
+            $scope.defaultParameters = ["lang"];
+
+
+            $scope.search = [];
+            $scope.argumentsList = undefined;
+            $scope.selectedName = undefined;
+
+            // get the list of arguments for search
+            cvcService.getArguments().then(function (response) {
+                $scope.argumentsList = response;
+                angular.forEach(response, function (value, key) {
+                    $scope.search.push(key + ": " + value.description);
+                });
+            });
+
+            $scope.onSelect = function ($item, $model, $label, $event) {
+                $scope.selectedName = $item.substr(0, $item.indexOf(":"));
+                var argument = $scope.argumentsList[$scope.selectedName];
+
+                // single argument
+                if (!argument.type) {
+                    $scope.parameters[$scope.selectedName] = null;
+                }
+                // set the default value
+                else {
+                    if(argument.type == 'int' || argument.type == 'float'){
+                        $scope.parameters[$scope.selectedName] = parseInt(argument.defaultValue);
+                    }
+                    else {
+                        $scope.parameters[$scope.selectedName] = argument.defaultValue;
+                    }
+                }
+                // clear the selected argument
+                $scope.selectedName = '';
+            }
+
+            $scope.remove = function (key) {
+                if ($scope.parameters[key]) {
+                    delete $scope.parameters[key];
                 }
             }
+
         }
     ]
 });
