@@ -1,11 +1,15 @@
 <div class="modal-header">
     <h3 class="modal-title" id="modal-title">Load an example or a file</h3>
 </div>
+<div class="modal-body">
+    <Label>Load a file</Label>
+    <input-file file-changed="$ctrl.upload(text)"></input-file>
+</div>
 <div class="modal-body" id="modal-body">
-    <uib-tabset active="activeTab">
+    <uib-tabset>
         <uib-tab index="0" heading="Examples">
             <ul>
-                <li ng-repeat="example in $ctrl.examples | orderBy:example">
+                <li ng-repeat="example in $ctrl.resolve.examples | orderBy:example">
                     <a href="{{path+'/#examples/' + example}}" ng-click="$ctrl.getExampleModal(example)">{{example}}</a>
                 </li>
             </ul>

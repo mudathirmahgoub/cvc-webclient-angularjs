@@ -15,8 +15,14 @@ angular.module('cvc').component('modal', {
         };
 
         $ctrl.getExampleModal = function(example) {
-            $ctrl.resolve.getExample(example);
             $ctrl.close({$value: ""});
+            $ctrl.resolve.getExample(example);
+
+        }
+
+        $ctrl.upload = function(text) {
+            $ctrl.close({$value: ""});
+            $ctrl.resolve.upload(text);
         }
 
         $ctrl.ok = function () {

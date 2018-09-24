@@ -2,10 +2,10 @@
     <div class="editorCenter">
         <div class="editorCenterHeader">
             <a class="btn btn-success" ng-click="run()">{{ !waitingCheck ? 'Run ': 'Cancel'}} </a>
-            <input-file file-changed="upload(text)"></input-file>
+            <a class="btn btn-primary" ng-click="openModal()">Load</a>
             <a class="btn btn-primary" ng-click="download()" ng-href="{{savedFile}}"
                download="file.smt2">Download</a>
-            <a class="btn btn-primary" ng-click="openModal()">modal</a>
+
             <a class="btn btn-primary" ng-click="saveJob(null)"
                data-toggle="tooltip"
                title="Save code in the server using a new URL that can be shared">New Save</a>

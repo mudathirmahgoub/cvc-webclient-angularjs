@@ -392,6 +392,9 @@ angular.module('cvc').component('editor', {
                         },
                         getExample: function() {
                             return $scope.getExample;
+                        },
+                        upload: function () {
+                            return $scope.upload;
                         }
                     }
                 });
