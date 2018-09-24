@@ -1,19 +1,11 @@
 <div class="editorComponent">
-    <div class="editorExamples">
-        <h2>Examples</h2>
-        <ul>
-            <li ng-repeat="example in examples | orderBy:example">
-                <a href="{{path+'/#examples/' + example}}" ng-click="getExample(example)">{{example}}</a>
-            </li>
-        </ul>
-    </div>
-    <splitter class="editorColumnSplitter" direction="left"></splitter>
     <div class="editorCenter">
         <div class="editorCenterHeader">
             <a class="btn btn-success" ng-click="run()">{{ !waitingCheck ? 'Run ': 'Cancel'}} </a>
             <input-file file-changed="upload(text)"></input-file>
             <a class="btn btn-primary" ng-click="download()" ng-href="{{savedFile}}"
                download="file.smt2">Download</a>
+            <a class="btn btn-primary" ng-click="openModal()">modal</a>
             <a class="btn btn-primary" ng-click="saveJob(null)"
                data-toggle="tooltip"
                title="Save code in the server using a new URL that can be shared">New Save</a>

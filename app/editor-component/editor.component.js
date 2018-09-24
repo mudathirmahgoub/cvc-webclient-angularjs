@@ -381,6 +381,22 @@ angular.module('cvc').component('editor', {
                 }
             }
 
+
+            $scope.openModal = function () {
+                // open the modal interpreter
+                $uibModal.open({
+                    component: 'modal',
+                    resolve: {
+                        examples: function () {
+                            return $scope.examples;
+                        },
+                        getExample: function() {
+                            return $scope.getExample;
+                        }
+                    }
+                });
+            }
+
         }
     ]
 });
