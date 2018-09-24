@@ -10,7 +10,7 @@
         <uib-tab index="0" heading="Examples">
             <ul>
                 <li ng-repeat="example in $ctrl.resolve.examples | orderBy:example">
-                    <a href="{{path+'/#examples/' + example}}" ng-click="$ctrl.getExampleModal(example)">{{example}}</a>
+                    <a href="{{$ctrl.path+'/#examples/' + example}}" ng-click="$ctrl.getExampleModal(example)">{{example}}</a>
                 </li>
             </ul>
         </uib-tab>
