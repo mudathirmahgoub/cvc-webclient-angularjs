@@ -11,6 +11,7 @@ angular.module('cvc').component('modal', {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
+            $ctrl.path = $ctrl.resolve.path;
             $ctrl.examples = $ctrl.resolve.examples;
         };
 

@@ -387,6 +387,7 @@ angular.module('cvc').component('editor', {
                 $uibModal.open({
                     component: 'modal',
                     resolve: {
+                        path: function () {return $scope.path;},
                         examples: function () {
                             return $scope.examples;
                         },
