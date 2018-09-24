@@ -54,7 +54,11 @@
         <div class="arguments">
             <div class="form-group">
                 <div ng-repeat="(key, value) in parameters">
-                    <label>{{key}}</label>
+                    <div>
+                        <p style="float: left;">{{key}}</p>
+                        <a ng-click="remove(key)"><i class="fa fa-times" style="float: right"></i></a>
+                        <div style="clear:both"></div>
+                    </div>
                     <div ng-switch on="argumentsList[key].type">
                         <select ng-switch-when="boolean" ng-model="parameters[key]"
                                 class="btn btn-primary form-control">

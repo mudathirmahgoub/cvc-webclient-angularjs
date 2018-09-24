@@ -376,9 +376,13 @@ angular.module('cvc').component('editor', {
             }
 
             $scope.remove = function (key) {
+                console.log(key);
                 if ($scope.parameters[key]) {
+                var index =
                     delete $scope.parameters[key];
                 }
+                console.log($scope.parameters[key]);
+                $scope.parameters = $scope.parameters;
             }
 
 
