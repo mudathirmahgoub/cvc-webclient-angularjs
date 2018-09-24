@@ -13,17 +13,21 @@ angular.module('cvc').directive('splitter', function () {
                 // hold the initial values of directions and lengths
 
                 $scope.defaultDirection = $scope.direction;
-                $scope.defaultPreviousWidth = $element[0].previousElementSibling.clientWidth;
-                $scope.defaultNextWidth = $element[0].nextElementSibling.clientWidth;
-                $scope.defaultPreviousHeight = $element[0].previousElementSibling.offsetHeight;
-                $scope.defaultNextHeight = $element[0].nextElementSibling.offsetHeight;
+                $scope.defaultPreviousWidth = $element[0].previousElementSibling.clientWidth/
+                    $element[0].parentElement.clientWidth * 100;
+                $scope.defaultNextWidth = $element[0].nextElementSibling.clientWidth /
+                    $element[0].parentElement.clientWidth * 100;
+                $scope.defaultPreviousHeight =  $element[0].previousElementSibling.offsetHeight /
+                    $element[0].parentElement.offsetHeight * 100;
+                $scope.defaultNextHeight = $element[0].nextElementSibling.offsetHeight /
+                    $element[0].parentElement.offsetHeight * 100;
 
                 // set the heights
 
                 angular.element($element[0].previousElementSibling).css('height',
-                    $scope.defaultPreviousHeight + 'px');
+                    $scope.defaultPreviousHeight + '%');
                 angular.element($element[0].nextElementSibling).css('height',
-                    $scope.defaultNextHeight + 'px');
+                    $scope.defaultNextHeight + '%');
 
                 $scope.onMouseDown = function ($event) {
 
@@ -52,18 +56,18 @@ angular.module('cvc').directive('splitter', function () {
                                 {
                                     var previousNewWidth = previousInitialWidth + event.clientX - initialX;
                                     var nextNewWidth = nextInitialWidth - event.clientX + initialX;
-                                    angular.element(previous).css('width', previousNewWidth + 'px');
+                                    angular.element(previous).css('width', previousNewWidth + '%');
                                     angular.element(previous).css('flex', 'initial');
-                                    angular.element(next).css('width', nextNewWidth + 'px');
+                                    angular.element(next).css('width', nextNewWidth + '%');
                                     angular.element(next).css('flex', 'initial');
                                 }
                                 else
                                 {
                                     var previousNewHeight = previousInitialHeight + event.clientY - initialY;
                                     var nextNewHeight = nextInitialHeight - event.clientY + initialY;
-                                    angular.element(previous).css('height', previousNewHeight + 'px');
+                                    angular.element(previous).css('height', previousNewHeight + '%');
                                     angular.element(previous).css('flex', 'initial');
-                                    angular.element(next).css('height', nextNewHeight + 'px');
+                                    angular.element(next).css('height', nextNewHeight + '%');
                                     angular.element(next).css('flex', 'initial');
                                 }
                             }
@@ -117,8 +121,8 @@ angular.module('cvc').directive('splitter', function () {
                             nextNewWidth = $scope.defaultNextWidth;
                         }
 
-                        angular.element(previous).css('width', previousNewWidth + 'px');
-                        angular.element(next).css('width', nextNewWidth + 'px');
+                        angular.element(previous).css('width', previousNewWidth + '%');
+                        angular.element(next).css('width', nextNewWidth + '%');
                     }
 
                     if($scope.defaultDirection == 'up' || $scope.defaultDirection == 'down')
@@ -152,8 +156,8 @@ angular.module('cvc').directive('splitter', function () {
                             nextNewHeight = $scope.defaultNextHeight;
                         }
 
-                        angular.element(previous).css('height', previousNewHeight + 'px');
-                        angular.element(next).css('height', nextNewHeight + 'px');
+                        angular.element(previous).css('height', previousNewHeight + '%');
+                        angular.element(next).css('height', nextNewHeight + '%');
                     }
 
                     angular.element(previous).css('flex', 'initial');
