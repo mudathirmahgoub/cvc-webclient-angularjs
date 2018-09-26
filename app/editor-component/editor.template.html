@@ -1,10 +1,13 @@
 <div class="editorComponent">
     <div class="editorCenter">
         <div class="editorCenterHeader">
-            <a class="btn btn-success" ng-click="run()">{{ !waitingCheck ? 'Run ': 'Cancel'}} </a>
-            <a class="btn btn-primary" ng-click="openModal()">Load</a>
+            <a class="btn btn-success" ng-click="run()"
+            title="Run the code on the web server">{{ !waitingCheck ? 'Run ': 'Cancel'}} </a>
+            <a class="btn btn-primary" ng-click="openModal()"
+            title="Load an example or a file">Load</a>
             <a class="btn btn-primary" ng-click="download()" ng-href="{{savedFile}}"
-               download="file.smt2">Download</a>
+               download="file.smt2"
+               title="Download the current code">Download</a>
 
             <a class="btn btn-primary" ng-click="saveJob(null)"
                data-toggle="tooltip"
@@ -12,7 +15,8 @@
             <a class="btn btn-primary" ng-click="saveJob(jobId)"
                data-toggle="tooltip"
                title="Save code in the server using the current URL. Generate a new URL if there is none">Save code</a>
-            <a class="btn btn-primary" ng-click="toggleTheme()">
+            <a class="btn btn-primary" ng-click="toggleTheme()"
+            title="{{isDarkTheme? 'Use a light theme' : 'Use a dark theme'}}">
                 <img ng-src="{{isDarkTheme? 'icons/bright.png' : 'icons/dark.png'}}" width="20" height="20">
             </a>
         </div>
@@ -85,7 +89,7 @@
             </div>
             <hr/>
             <div>
-                <button class="btn btn-primary" ng-click="reset()">Reset</button>
+                <button class="btn btn-primary" ng-click="reset()" title="Reset arguments">Reset</button>
             </div>
         </div>
     </div>
