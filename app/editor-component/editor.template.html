@@ -2,7 +2,7 @@
     <div class="editorCenter">
         <div class="editorCenterHeader">
             <a class="btn btn-success" ng-click="run()"
-            title="Run the code on the web server">{{ !waitingCheck ? 'Run ': 'Cancel'}} </a>
+            title="{{!waitingCheck ?'Run the code on the web server': 'Cancel the current run'}}">{{ !waitingCheck ? 'Run ': 'Cancel'}} </a>
             <a class="btn btn-primary" ng-click="openModal()"
             title="Load an example or a file">Load</a>
             <a class="btn btn-primary" ng-click="download()" ng-href="{{savedFile}}"
