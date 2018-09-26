@@ -31,7 +31,11 @@ angular.module('cvc').component('editor', {
             $scope.waitingRun = false;
 
             // ace editor initialization
+            var Range = ace.require("ace/range").Range;
             var editor = ace.edit('editor');
+
+            var errors = [];
+
             $scope.isDarkTheme = true;
             editor.setTheme("ace/theme/idle_fingers");
             editor.getSession().setMode("ace/mode/smt_lib");
@@ -50,24 +54,27 @@ angular.module('cvc').component('editor', {
             editor.setValue(defaultCode);
             editor.selection.clearSelection();
 
+            editor.on('mousemove', function (e) {
+
+                var position = e.getDocumentPosition();
+                angular.forEach(errors, function (error) {
+                   if(  position.row  == error.lineNumber - 1 &&
+                        position.column == error.columnNumber - 1){
+                       var classes = "errorHighlight row" + error.lineNumber +
+                           "column" + error.columnNumber;
+                       document.getElementsByClassName(classes)[0].setAttribute("title", error.message);
+                   }
+                });
+                // stop the event
+                //e.stop();
+            });
+
+
+
             $scope.code = editor.getValue();
 
             // tabs
             $scope.activeTab = 0; // Logs tab
-
-            // register an event for opening counter examples when the gutter is clicked
-            editor.on('gutterclick', function (e) {
-
-                var target = e.domEvent.target;
-
-                if (target.className.includes('ace_error')) {
-
-                    // get the selected row
-                    var row = e.getDocumentPosition().row;
-                }
-                // stop the event
-                e.stop();
-            });
 
             // get the list of examples
             cvcService.getExamples().then(function (response) {
@@ -141,16 +148,11 @@ angular.module('cvc').component('editor', {
                 if (!$scope.code || !$scope.code.trim()) {
 
                     $scope.results = {};
-                    $scope.results.Log = [
-                        {
-                            class: 'fatal',
-                            line: 1,
-                            column: 0,
-                            value: 'Empty code!'
-                        }
+                    $scope.results.data = [
+                        "Parse Error: /code.txt:1.1: Empty code"
                     ];
 
-                    $scope.activeTab = 0; // logs tab
+                    $scope.activeTab = 0; // output tab
                     return true;
                 }
                 return false;
@@ -233,31 +235,22 @@ angular.module('cvc').component('editor', {
                     });
             }
 
-            $scope.selectProperty = function (property) {
-                $scope.property = property;
-                var lineNumber = parseInt(property.line);
-                editor.gotoLine(lineNumber);
-
-                if (property.counterExampleVisible != undefined) {
-                    property.counterExampleVisible = !property.counterExampleVisible;
-                }
-            }
-
-            $scope.selectLog = function (log) {
-                $scope.log = log;
-                editor.gotoLine(log.line);
-            }
-
             function setAnnotations(reset) {
                 var annotations;
+
                 if (reset) {
                     annotations = [];
+                    errors = [];
+                    var markers = editor.getSession().getMarkers();
+                    angular.forEach(markers, function (marker) {
+                       editor.getSession().removeMarker(marker.id);
+                    });
                 }
                 else {
                     annotations = editor.getSession().getAnnotations();
                 }
 
-                setLogAnnotations();
+                setErrorAnnotations();
 
                 // sort annotations so that error annotations get displayed after other annotations
                 // i.e. the order would be: warning, info, error
@@ -277,27 +270,46 @@ angular.module('cvc').component('editor', {
 
                 editor.getSession().setAnnotations(annotations);
 
+                function setErrorAnnotations() {
+                    if (sharedService.checkNested($scope, 'results', 'data')) {
+                        angular.forEach($scope.results.data, function (data) {
 
-                function setLogAnnotations() {
-                    if (sharedService.checkNested($scope, 'results', 'Log')) {
-                        angular.forEach($scope.results.Log, function (log) {
+                            var smtLibPattern = /Parse Error: \/code.txt:\d+.\d+:.*/g;
+                            var parseErrors = data.match(smtLibPattern);
 
-                            var lineNumber = log.line;
+                            if(parseErrors && parseErrors.length > 0)
+                            {
+                                angular.forEach(parseErrors, function (parseError) {
 
-                            var annotationType = 'warning';
-                            if (log.class === 'info') {
-                                annotationType = 'info';
+                                    // example "Parse Error: /code.txt:10.7: Unexpected token: '('."
+                                    var parts = parseError.split(':');
+                                    var numbers = parts[2].split('.');
+
+                                    var error = {};
+
+                                    error.lineNumber = parseInt(numbers[0]);
+                                    error.columnNumber = parseInt(numbers[1]);
+                                    error.message = parts.slice(3, parts.length).join('').trim();
+
+                                    var range = new Range(error.lineNumber - 1, error.columnNumber - 1,
+                                        error.lineNumber - 1, error.columnNumber);
+                                    var classes = "errorHighlight row" + error.lineNumber +
+                                        "column" + error.columnNumber;
+                                    editor.session.addMarker(range,classes, "text");
+
+                                    console.log(editor.getSession().getMarkers());
+
+                                    var annotationType = 'error';
+
+                                    annotations.push({
+                                        row: error.lineNumber - 1,
+                                        column: 0,
+                                        html: error.message,
+                                        type: annotationType
+                                    });
+                                    errors.push(error);
+                                });
                             }
-                            if (log.class === 'fatal') {
-                                annotationType = 'error';
-                            }
-
-                            annotations.push({
-                                row: lineNumber - 1,
-                                column: 0,
-                                html: log.value.trim(),
-                                type: annotationType
-                            });
                         });
                     }
                 }
@@ -321,14 +333,6 @@ angular.module('cvc').component('editor', {
 
             $rootScope.setWaitingRun = function (value) {
                 $scope.waitingRun = value;
-            }
-
-            $rootScope.setErrorLog = function (log) {
-                $scope.results = {};
-                $scope.results.Log = [
-                    log
-                ];
-                $scope.activeTab = 0; // logs tab
             }
 
             // parameters
