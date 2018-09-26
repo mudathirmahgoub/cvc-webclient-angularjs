@@ -54,18 +54,49 @@ angular.module('cvc').component('editor', {
             editor.setValue(defaultCode);
             editor.selection.clearSelection();
 
-            editor.on('mousemove', function (e) {
-                // var position = e.getDocumentPosition();
+            //https://github.com/devuxd/SeeCodeRun/wiki/Ace-code-editor
+            editor.on("mousemove", function (e){
+                var position = e.getDocumentPosition();
+
                 angular.forEach(errors, function (error) {
-                       var classes = "errorHighlight row" + error.lineNumber +
-                           "column" + error.columnNumber;
-                       document.getElementsByClassName(classes)[0].setAttribute("title", error.message);
+                    if (position.row == error.lineNumber - 1 &&
+                        position.column == error.columnNumber - 1) {
+                        var text = error.message;
+                        if (text.length > 0) {
+                            var pixelPosition = editor.renderer.textToScreenCoordinates(position);
+                            pixelPosition.pageY += editor.renderer.lineHeight;
+                            updateTooltip(pixelPosition, text);
+                        } else {
+                            updateTooltip(editor.renderer.textToScreenCoordinates(position));
+                        }
+                    }
+                    else{
+                        updateTooltip(editor.renderer.textToScreenCoordinates(position));
+                    }
                 });
-                // stop the event
-                e.stop();
             });
 
+            //https://github.com/devuxd/SeeCodeRun/wiki/Ace-code-editor
+            function updateTooltip(position, text){
+                //example with container creation via JS
+                var div = document.getElementById('tooltip_0');
+                if(div === null){
+                    div = document.createElement('div');
+                    div.setAttribute('id', 'tooltip_0');
+                    div.setAttribute('class', 'ace_editor ace_tooltip tooltip_0');
+                    document.body.appendChild(div);
+                }
 
+                div.style.left = position.pageX + 'px';
+                div.style.top = position.pageY + 'px';
+                if(text){
+                    div.style.display = "block";
+                    div.innerText = text;
+                }else{
+                    div.style.display = "none";
+                    div.innerText = "";
+                }
+            }
 
             $scope.code = editor.getValue();
 
