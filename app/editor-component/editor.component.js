@@ -55,18 +55,14 @@ angular.module('cvc').component('editor', {
             editor.selection.clearSelection();
 
             editor.on('mousemove', function (e) {
-
-                var position = e.getDocumentPosition();
+                // var position = e.getDocumentPosition();
                 angular.forEach(errors, function (error) {
-                   if(  position.row  == error.lineNumber - 1 &&
-                        position.column == error.columnNumber - 1){
                        var classes = "errorHighlight row" + error.lineNumber +
                            "column" + error.columnNumber;
                        document.getElementsByClassName(classes)[0].setAttribute("title", error.message);
-                   }
                 });
                 // stop the event
-                //e.stop();
+                e.stop();
             });
 
 
@@ -296,8 +292,6 @@ angular.module('cvc').component('editor', {
                                     var classes = "errorHighlight row" + error.lineNumber +
                                         "column" + error.columnNumber;
                                     editor.session.addMarker(range,classes, "text");
-
-                                    console.log(editor.getSession().getMarkers());
 
                                     var annotationType = 'error';
 
