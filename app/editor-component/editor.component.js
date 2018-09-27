@@ -430,6 +430,32 @@ angular.module('cvc').component('editor', {
                 });
             }
 
+            $scope.onArgumentChange = function() {
+                switch($scope.parameters['lang'])
+                {
+                    case 'smtlib1':
+                    case 'smtlib2.0':
+                    case 'smtlib2.5':
+                    case 'smtlib2.6':
+                    case 'sygus':{
+                                        editor.getSession().setMode("ace/mode/smt_lib");
+                                 }
+                                    break;
+                    case 'cvc4':{
+                                    editor.getSession().setMode("ace/mode/cvc");
+                                } break;
+                    case 'tptp':{
+                                    editor.getSession().setMode("ace/mode/tptp");
+                                }
+                                break;
+                    {
+                                    console.log('sygus');
+                                }
+                                break;
+
+                }
+            }
+
         }
     ]
 });
