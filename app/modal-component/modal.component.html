@@ -6,11 +6,12 @@
     <input-file file-changed="$ctrl.upload(text)"></input-file>
 </div>
 <div class="modal-body" id="modal-body">
-    <uib-tabset>
-        <uib-tab index="0" heading="Examples">
+    <uib-tabset active="1">
+        <uib-tab ng-repeat="kind in $ctrl.exampleKinds" heading="{{kind.name}}">
+            <br/>
             <ul>
-                <li ng-repeat="example in $ctrl.resolve.examples | orderBy:example">
-                    <a href="{{$ctrl.path+'/#examples/' + example}}" ng-click="$ctrl.getExampleModal(example)">{{example}}</a>
+                <li ng-repeat="example in kind.names | orderBy:example">
+                    <a href="{{$ctrl.path+'/#examples/' + kind.name + '/' + example}}" ng-click="$ctrl.getExampleModal(kind.name + '/' + example)">{{example}}</a>
                 </li>
             </ul>
         </uib-tab>

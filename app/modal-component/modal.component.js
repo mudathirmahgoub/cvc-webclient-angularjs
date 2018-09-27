@@ -12,7 +12,7 @@ angular.module('cvc').component('modal', {
 
         $ctrl.$onInit = function () {
             $ctrl.path = $ctrl.resolve.path;
-            $ctrl.examples = $ctrl.resolve.examples;
+            $ctrl.exampleKinds = $ctrl.resolve.examples;
         };
 
         $ctrl.getExampleModal = function(example) {

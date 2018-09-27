@@ -105,7 +105,7 @@ angular.module('cvc').component('editor', {
 
             // get the list of examples
             cvcService.getExamples().then(function (response) {
-                $scope.examples = response.names;
+                $scope.exampleKinds = response.kinds;
             });
 
             $scope.getExample = function (example) {
@@ -418,7 +418,7 @@ angular.module('cvc').component('editor', {
                     resolve: {
                         path: function () {return $scope.path;},
                         examples: function () {
-                            return $scope.examples;
+                            return $scope.exampleKinds;
                         },
                         getExample: function() {
                             return $scope.getExample;
