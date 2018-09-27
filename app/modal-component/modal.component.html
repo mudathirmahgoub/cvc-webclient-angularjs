@@ -7,7 +7,7 @@
 </div>
 <div class="modal-body" id="modal-body">
     <uib-tabset active="1">
-        <uib-tab ng-repeat="kind in $ctrl.exampleKinds | orderBy:kind.name" heading="{{kind.name}}">
+        <uib-tab ng-repeat="kind in $ctrl.exampleKinds | orderBy:'name'" heading="{{kind.name}}">
             <br/>
             <ul>
                 <li ng-repeat="example in kind.names | orderBy:example">
