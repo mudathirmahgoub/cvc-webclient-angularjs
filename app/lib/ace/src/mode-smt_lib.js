@@ -52,21 +52,18 @@ define("ace/mode/smt_lib_highlight_rules",
         this.$rules = {
             "start": [
                 {
-                    token : "property",
-                    regex : "--%PROPERTY(?:.|\\s)*;"
-                },
-                {
-                    token : "main",
-                    regex : "--%MAIN\\s*;"
-                },
-                {
                     token : "comment",
                     regex : ";.*$"
                 },
                 {
                     token: "constant.numeric", // hex
-                    regex: "0[xX][0-9a-fA-F]+\\b"
-                }, {
+                    regex: "#x[0-9a-fA-F]+\\b"
+                },
+                {
+                    token: "constant.numeric", // binary
+                    regex: "#b[0-1]+\\b"
+                },
+                {
                     token: "constant.numeric", // float
                     regex: "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?\\b"
                 }, {
