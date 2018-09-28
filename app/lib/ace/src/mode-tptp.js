@@ -47,7 +47,7 @@ define("ace/mode/tptp_highlight_rules",
     var SmtLibHighlightRules = function () {
         var keywordMapper = this.createKeywordMapper({
           "variable.language": "this",
-          "keyword":"fof|cnf|thf|tff|type|include|"
+          "keyword":"fof|cnf|thf|tff|type|include|$int|$rat|$real|$uminus|$sum|$difference|$product|$less|$less|$greater|$greatereq|$evaleq|$is_int|$is_rat|$to_int|$to_rat|$to_real|$tType|"
         }, "identifier");
         this.$rules = {
             "start": [
