@@ -34,11 +34,20 @@ angular.module('cvc').component('editor', {
             var Range = ace.require("ace/range").Range;
             var editor = ace.edit('editor');
 
+            var outputEditor = ace.edit('outputEditor');
+            outputEditor.setReadOnly(true);
+            outputEditor.setHighlightActiveLine(false);
+            outputEditor.renderer.$cursorLayer.element.style.display = "none"
+
             var errors = [];
 
             $scope.isDarkTheme = true;
             editor.setTheme("ace/theme/idle_fingers");
+            outputEditor.setTheme("ace/theme/idle_fingers");
+
             editor.getSession().setMode("ace/mode/smt_lib");
+            outputEditor.getSession().setMode("ace/mode/smt_lib");
+
             var defaultCode = "(set-logic ALL)\n" +
                 "(set-option :produce-models true)\n" +
                 "(declare-fun x () Int)\n" +
@@ -165,6 +174,11 @@ angular.module('cvc').component('editor', {
 
                 $scope.results = response;
                 $scope.activeTab = 0;
+
+                if(sharedService.checkNested(response, 'data')) {
+                    outputEditor.setValue(response.data.join('\n'));
+                    outputEditor.selection.clearSelection();
+                }
 
                 // set annotations
                 setAnnotations(reset);
@@ -439,13 +453,16 @@ angular.module('cvc').component('editor', {
                     case 'smtlib2.6':
                     case 'sygus':{
                                         editor.getSession().setMode("ace/mode/smt_lib");
+                                        outputEditor.getSession().setMode("ace/mode/smt_lib");
                                  }
                                     break;
                     case 'cvc4':{
                                     editor.getSession().setMode("ace/mode/cvc");
+                                    outputEditor.getSession().setMode("ace/mode/cvc");
                                 } break;
                     case 'tptp':{
                                     editor.getSession().setMode("ace/mode/tptp");
+                                    outputEditor.getSession().setMode("ace/mode/tptp");
                                 }
                                 break;
                     {
