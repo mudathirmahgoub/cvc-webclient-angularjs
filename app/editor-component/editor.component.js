@@ -134,6 +134,8 @@ angular.module('cvc').component('editor', {
                     $scope.code = response.code;
                     editor.setValue(response.code);
                     editor.selection.clearSelection();
+
+                    // change the language
                     if(example.includes('smt')){
                         $scope.parameters['lang'] = 'smtlib2.6';
                     }
@@ -146,6 +148,10 @@ angular.module('cvc').component('editor', {
                     else if (example.includes('tptp')){
                         $scope.parameters['lang'] = 'tptp';
                     }
+
+                    // change the syntax highlighter
+                     $scope.onArgumentChange();
+
                 });
             }
 
