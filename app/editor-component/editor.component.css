@@ -5,6 +5,7 @@
 
 .editorColumnSplitter{
     flex: none;
+    z-index: 1000;
 }
 
 .editorCenter{
@@ -36,8 +37,7 @@
 }
 
 .editorContainer{
-    flex: 1;
-//    min-height: 600px;
+    height: 100%;
 }
 
 .outputEditor{
@@ -53,6 +53,7 @@
 .editorRowSplitter{
     width: 100%;
     flex: none;
+    z-index: 1000;
 }
 
 .editorCenterFooter{
@@ -172,4 +173,14 @@
 
 .tooltip_0 {
     font-size: 20px !important;
+}
+
+.output{
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    z-index: 100;
+    height: 42px!important;
+    min-height: 42px!important;
+    max-height: 42px!important;
 }
