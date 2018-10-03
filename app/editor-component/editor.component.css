@@ -47,6 +47,16 @@
     min-height: 600px;
 }
 
+.outputEditor{
+    height:100%;
+    font-size:20px !important;
+}
+
+.outputEditorContainer{
+    height:calc(100% - 42px);
+    width: 100%
+}
+
 .editorRowSplitter{
     width: 100%;
     flex: none;
