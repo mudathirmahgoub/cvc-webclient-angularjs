@@ -2,12 +2,6 @@
     height: 100%; display: flex
 }
 
-.editorExamples{
-    height: 100%;
-    width: 200px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
 
 .editorColumnSplitter{
     flex: none;
@@ -27,7 +21,6 @@
 }
 
 .editorCenterBody{
-    overflow: scroll;
     flex: 3;
     display: flex;
     flex-direction: column;
@@ -44,7 +37,7 @@
 
 .editorContainer{
     flex: 1;
-    min-height: 600px;
+//    min-height: 600px;
 }
 
 .outputEditor{
@@ -81,11 +74,6 @@
 
 .nav-tabs{
     flex: none;
-}
-
-.tab-content{
-    flex: 1;
-    overflow-y: scroll;
 }
 
 .editorArguments{
