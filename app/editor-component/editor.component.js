@@ -134,6 +134,18 @@ angular.module('cvc').component('editor', {
                     $scope.code = response.code;
                     editor.setValue(response.code);
                     editor.selection.clearSelection();
+                    if(example.includes('smt')){
+                        $scope.parameters['lang'] = 'smtlib2.6';
+                    }
+                    else if (example.includes('cvc')){
+                        $scope.parameters['lang'] = 'cvc4';
+                    }
+                    else if (example.includes('sygus')){
+                        $scope.parameters['lang'] = 'sygus';
+                    }
+                    else if (example.includes('tptp')){
+                        $scope.parameters['lang'] = 'tptp';
+                    }
                 });
             }
 
