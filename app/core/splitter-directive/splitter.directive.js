@@ -75,6 +75,7 @@ angular.module('cvc').directive('splitter', function () {
 
                         angular.element(parent).on('mouseup', function () {
                             mouseDown = false;
+                            window.dispatchEvent(new Event('resize'));
                         });
 
                         angular.element(parent).on('mouseleave', function () {

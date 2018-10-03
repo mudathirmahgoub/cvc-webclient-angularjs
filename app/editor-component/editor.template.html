@@ -46,18 +46,13 @@
         <splitter direction="down" class="editorRowSplitter">
         </splitter>
         <div class="editorCenterFooter">
-            <div style="height:100%; width: 100%">
+            <uib-tabset active="activeTab">
+                <uib-tab index="0" heading="Output">
+                </uib-tab>
+            </uib-tabset>
+            <div style="height:calc(100% - 42px); width: 100%">
                 <div id="outputEditor" style="height:100%;font-size:20px;"></div>
             </div>
-            <!--<uib-tabset active="activeTab">-->
-                <!--<uib-tab index="0" heading="Output">-->
-                    <!--<div ng-show="results.data">-->
-                        <!--<div ng-repeat="line in results.data track by $index">-->
-                            <!--<div>{{line}}</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</uib-tab>-->
-            <!--</uib-tabset>-->
         </div>
     </div>
     <splitter class="editorColumnSplitter" direction="right"></splitter>
