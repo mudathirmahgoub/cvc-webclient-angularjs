@@ -179,6 +179,11 @@ angular.module('cvc').component('editor', {
                     outputEditor.setValue(response.data.join('\n'));
                     outputEditor.selection.clearSelection();
                 }
+                else {
+                    outputEditor.setValue('');
+                    outputEditor.selection.clearSelection();
+                }
+
 
                 // set annotations
                 setAnnotations(reset);
@@ -364,9 +369,11 @@ angular.module('cvc').component('editor', {
                 $scope.isDarkTheme = !$scope.isDarkTheme;
                 if ($scope.isDarkTheme) {
                     editor.setTheme("ace/theme/idle_fingers");
+                    outputEditor.setTheme("ace/theme/idle_fingers");
                 }
                 else {
                     editor.setTheme("ace/theme/xcode");
+                    outputEditor.setTheme("ace/theme/xcode");
                 }
             }
 
