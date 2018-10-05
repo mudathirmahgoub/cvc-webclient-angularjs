@@ -34,7 +34,7 @@ html, body{
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
   background-color: #00cc6d;
-  background-image: linear-gradient(to bottom, #00cc88, #00cc44);
+  background-image: linear-gradient(to bottom, #00de94, #058630);
   background-repeat: repeat-x;
-  border-color: #00cc44 #00cc44 #003e1a;
+  border-color: #05752c #05752c #02481f;
 }
