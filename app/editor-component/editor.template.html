@@ -60,7 +60,7 @@
                     <div>
                         <div style="clear:both"></div>
                         <p style="float: left;">{{key}}</p>
-                        <a ng-show="key != 'lang'" ng-click="remove(key)"><i class="fa fa-times" style="float: right"></i></a>
+                        <a ng-show="!defaultParameters.includes(key)" ng-click="remove(key)"><i class="fa fa-times" style="float: right"></i></a>
                     </div>
                     <div ng-switch on="argumentsList[key].type">
                         <select ng-switch-when="boolean" ng-model="parameters[key]"

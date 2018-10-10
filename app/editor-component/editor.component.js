@@ -403,12 +403,12 @@ angular.module('cvc').component('editor', {
             $scope.reset = function () {
                 $scope.parameters = {};
                 $scope.parameters['lang'] = 'smtlib2.6';
+                $scope.parameters['tlimit'] = cvcEnvironment.tlimit;
             }
             $scope.reset();
 
             // default parameters that are always visible
-            $scope.defaultParameters = ["lang"];
-
+            $scope.defaultParameters = ['lang', 'tlimit'];
 
             $scope.search = [];
             $scope.argumentsList = undefined;
