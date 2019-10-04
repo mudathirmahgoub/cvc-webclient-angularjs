@@ -423,7 +423,7 @@ define("ace/mode/smt_lib",
 
     (function () {
 
-        this.lineCommentStart = "--";
+        this.lineCommentStart = ";";
         this.blockComment = {start: "/*", end: "*/"};
 
         this.getNextLineIndent = function (state, line, tab) {

@@ -423,7 +423,7 @@ define("ace/mode/cvc",
 
     (function () {
 
-        this.lineCommentStart = "--";
+        this.lineCommentStart = "%";
         this.blockComment = {start: "/*", end: "*/"};
 
         this.getNextLineIndent = function (state, line, tab) {
