@@ -1,10 +1,10 @@
-# kind2-webclient
+# CVC-webclient
 
-Source code for the NEW web client
+Source code for the CVC web client
 
 ## Deployment
 
-Deployment of kind2-webclient is easy since it is a static web app. 
+Deployment of CVC-webclient is easy since it is a static web app. 
 You only need to do the following:
 
 1. Copy the files under the **app** directory to the web server. 
@@ -20,11 +20,11 @@ kindEnvironment.apiUrl = "http://localhost:8080/";
 ```
 
 3. Change the base tag in index.html to reflect the deployment path. 
- For milner the deployment path is ```http://kind.cs.uiowa.edu:8080/app/``` 
- therefore, the base would be ```/app/```
+ For milner the deployment path is ```http://kind.cs.uiowa.edu/cvc-app/``` 
+ therefore, the base would be ```/cvc-app/```
 ```html
 <head>
-    <base href='/app/'/>
+    <base href='/cvc-app/'/>
     ...
 </head>
 ```
@@ -53,24 +53,3 @@ and block AngularJS Ajax requests. Any extension that enables cross-origin resou
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) can be used for development.
 For chrome you can use this [plugin](https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc?hl=en)
 
-## Testing
-
-Before running tests, make sure the http-server is running using ```npm start```.
-
-kind2-webclient uses [Karma](https://karma-runner.github.io/1.0/index.html) for unit tests. 
-
-To run the tests, use the command
-```text
-npm test
-```
-
-kind2-webclient uses [protractor](http://www.protractortest.org/#/) 
-for end to end testing. The following command needs to run once after installation
- 
-```
-node node_modules/protractor/bin/webdriver-manager  update
-```
-
-To run the tests, use the command
- 
- ```npm run protractor```
