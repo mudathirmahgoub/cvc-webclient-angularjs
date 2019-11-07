@@ -10,7 +10,7 @@ angular.module('cvc')
                 requireBase: false
             });
 
-            $compileProvider.aHrefSanitizationWhitelist(/^\s*(http?|ftp|mailto|tel|file|blob):/);
+            $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
             $routeProvider
                 .when('/',
                     {
