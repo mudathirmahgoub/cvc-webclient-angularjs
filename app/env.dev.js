@@ -6,6 +6,6 @@
 
 var __env = {}
 
-__env.apiUrl = "http://kind.cs.uiowa.edu:8080/cvcservices-dev/";
+__env.apiUrl = "https://kind.cs.uiowa.edu/cvcservices-dev/";
 
 
