@@ -13,7 +13,7 @@ The directory path in milner is ```/var/lib/tomcat7/webapps/app```
 
 ```javascript
 // production api Url
-// kindEnvironment.apiUrl = "http://kind.cs.uiowa.edu:8080/kindservices/";
+// kindEnvironment.apiUrl = "https://kind.cs.uiowa.edu/cvcservices/";
 
 // development api Url
 kindEnvironment.apiUrl = "http://localhost:8080/";
