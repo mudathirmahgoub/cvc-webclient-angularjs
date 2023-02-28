@@ -10,12 +10,12 @@
         "protractor": "protractor e2e-tests/protractor.conf.js"
     },
     "dependencies": {
-        "http-server": "^0.10.0",
+        "http-server": "^14.1.1",
         "jasmine": "^2.6.0",
         "jasmine-core": "^2.6.3",
-        "karma": "^1.7.0",
+        "karma": "^6.4.1",
         "karma-chrome-launcher": "^2.1.1",
         "karma-jasmine": "^1.1.0",
-        "protractor": "^5.1.2"
+        "protractor": "^5.4.4"
     }
 }
